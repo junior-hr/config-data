@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+spring:
+  application:
+    name: service-client
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: BankClientDB
+      auto-index-creation: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ms-discovery:9093/eureka
+resilience4j:
+  circuitbreaker:
+    instances:
+      client:
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 4
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 8
+        waitDurationInOpenState: 50s
+        permittedNumberOfCallsInHalfOpenState: 3
+message:
+  demo: leido desde git
