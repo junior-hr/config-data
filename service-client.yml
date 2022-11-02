@@ -7,9 +7,7 @@ spring:
     name: service-client
   data:
     mongodb:
-      host: mongodb
-      port: 27017
-      database: BankClientDB
+      uri: mongodb://localhost:27017/BankClientDB
       auto-index-creation: true
 eureka:
   client:
@@ -18,12 +16,25 @@ eureka:
 resilience4j:
   circuitbreaker:
     instances:
-      client:
+      creditCB:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
         failureRateThreshold: 50
-        minimumNumberOfCalls: 4
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 8
-        waitDurationInOpenState: 50s
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 2s
         permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 8
+        slidingWindowType: COUNT_BASED
+      loanCB:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 8
+        slidingWindowType: COUNT_BASED
 message:
   demo: leido desde git

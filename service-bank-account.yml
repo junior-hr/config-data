@@ -15,9 +15,7 @@ spring:
     name: service-bank-account
   data:
     mongodb:
-      host: mongodb
-      port: 27017
-      database: BankAccountDB
+      uri: mongodb://localhost:27017/BankAccountDB
       auto-index-creation: true
 eureka:
   client:
@@ -26,12 +24,33 @@ eureka:
 resilience4j:
   circuitbreaker:
     instances:
-      bank-account:
+      clientCB:
         failureRateThreshold: 50
         minimumNumberOfCalls: 4
         slidingWindowType: COUNT_BASED
         slidingWindowSize: 8
-        waitDurationInOpenState: 50s
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+      creditCB:
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 4
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 8
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+      debitcardCB:
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 4
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 8
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+      movementCB:
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 4
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 8
+        waitDurationInOpenState: 2s
         permittedNumberOfCallsInHalfOpenState: 3
 message:
   demo: leido desde git

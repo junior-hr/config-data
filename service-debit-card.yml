@@ -15,9 +15,7 @@ spring:
     name: service-debit-card
   data:
     mongodb:
-      host: mongodb
-      port: 27017
-      database: DebitCardDB
+      uri: mongodb://localhost:27017/DebitCardDB
       auto-index-creation: true
 eureka:
   client:
@@ -26,7 +24,7 @@ eureka:
 resilience4j:
   circuitbreaker:
     instances:
-      bank-account:
+      debit-card:
         failureRateThreshold: 50
         minimumNumberOfCalls: 4
         slidingWindowType: COUNT_BASED
