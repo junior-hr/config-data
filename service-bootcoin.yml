@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8096
   error:
     include-message: always
 local:
@@ -8,15 +8,12 @@ local:
       ms-bank-account: ms-bank-account
       ms-client: ms-client
       ms-credits: ms-credits
+      ms-movement: ms-movement
       ms-loan: ms-loan
       ms-debit-card: ms-debit-card
 spring:
   application:
-    name: service-movement
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/MovementsDB
-      auto-index-creation: true
+    name: service-bootcoin
 eureka:
   client:
     service-url:
@@ -24,21 +21,7 @@ eureka:
 resilience4j:
   circuitbreaker:
     instances:
-      creditCB:
-        failureRateThreshold: 50
-        minimumNumberOfCalls: 4
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 8
-        waitDurationInOpenState: 2s
-        permittedNumberOfCallsInHalfOpenState: 3
       bankaccountCB:
-        failureRateThreshold: 50
-        minimumNumberOfCalls: 4
-        slidingWindowType: COUNT_BASED
-        slidingWindowSize: 8
-        waitDurationInOpenState: 2s
-        permittedNumberOfCallsInHalfOpenState: 3
-      mobilewalletCB:
         failureRateThreshold: 50
         minimumNumberOfCalls: 4
         slidingWindowType: COUNT_BASED
